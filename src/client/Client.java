@@ -3,7 +3,11 @@ package client;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -76,15 +80,39 @@ public class Client extends JFrame {
 		
 		return gameSelectPane;
 	}
+	
+	private JButton newTicTacToeBtn() {
+		JButton ticTacToeBtn = new JButton();
+		ticTacToeBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// initialize tic tac toe game
+			}
+		});
+		
+		ImageIcon image = new ImageIcon(getClass().getResource("/client/images/tic-tac-toe.png"));
+		Image img = image.getImage();
+		Image newImg = img.getScaledInstance(150, 128, java.awt.Image.SCALE_SMOOTH);
+		image = new ImageIcon(newImg);
+		ticTacToeBtn.setIcon(image);
+		
+		return ticTacToeBtn;
+	}
 
 	private JButton newPuzzleBtn() {
 		JButton puzzleBtn = new JButton();
+		puzzleBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// initialize puzzle game
+			}
+		});
+		
+		ImageIcon image = new ImageIcon(getClass().getResource("/client/images/puzzle.png"));
+		Image img = image.getImage();
+		Image newImg = img.getScaledInstance(150, 128, java.awt.Image.SCALE_SMOOTH);
+		image = new ImageIcon(newImg);
+		puzzleBtn.setIcon(image);
+		
 		return puzzleBtn;
-	}
-
-	private JButton newTicTacToeBtn() {
-		JButton ticTacToeBtn = new JButton();
-		return ticTacToeBtn;
 	}
 
 	private JLabel newPlaceholderLbl() {
