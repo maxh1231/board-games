@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -21,6 +22,8 @@ public class Client extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JPanel gameSelectPane;
+	private Client frame;
 
 	/**
 	 * Launch the application.
@@ -52,7 +55,7 @@ public class Client extends JFrame {
 		JLabel titleLbl = newTitleLbl();
 		contentPane.add(titleLbl, BorderLayout.NORTH);
 		
-		JPanel gameSelectPane = newGameSelectPane();
+		gameSelectPane = newGameSelectPane();
 		contentPane.add(gameSelectPane, BorderLayout.CENTER);
 		
 		JLabel placeHolderLbl = newPlaceholderLbl();
@@ -84,10 +87,14 @@ public class Client extends JFrame {
 	private JButton newTicTacToeBtn() {
 		JButton ticTacToeBtn = new JButton();
 		ticTacToeBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				// initialize tic tac toe game
-			}
-		});
+            public void actionPerformed(ActionEvent e) {
+            	JPanel tic = new TicTacToeClient();
+                contentPane.remove(gameSelectPane);
+                contentPane.add(tic, BorderLayout.CENTER);
+                contentPane.revalidate();
+                contentPane.repaint();
+            }
+        });
 		
 		ImageIcon image = new ImageIcon(getClass().getResource("/client/images/tic-tac-toe.png"));
 		Image img = image.getImage();
