@@ -23,7 +23,6 @@ public class Client extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel gameSelectPane;
-	private Client frame;
 
 	/**
 	 * Launch the application.
@@ -89,7 +88,7 @@ public class Client extends JFrame {
 		ticTacToeBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	JPanel tic = new TicTacToeClient();
-                contentPane.remove(gameSelectPane);
+                contentPane.removeAll();
                 contentPane.add(tic, BorderLayout.CENTER);
                 contentPane.revalidate();
                 contentPane.repaint();

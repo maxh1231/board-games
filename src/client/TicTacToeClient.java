@@ -42,7 +42,11 @@ public class TicTacToeClient extends JPanel {
 		JButton btnNewButton = new JButton("Play");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				JPanel inputPlayers = new PlayerInput();
+                removeAll();
+                add(inputPlayers, BorderLayout.CENTER);
+                revalidate();
+                repaint();
 			}
 		});
 		return btnNewButton;
