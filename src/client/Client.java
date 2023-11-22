@@ -10,7 +10,8 @@ public class Client extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	// Hello
+	// Comment
 	/**
 	 * Launch the application.
 	 */
