@@ -8,12 +8,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PlayerInput extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel player1Pane;
 	private JPanel player2Pane;
+	private JTextField player1Name;
+	private JTextField player2Name;
 	
 	/**
 	 * Create the panel.
@@ -22,7 +26,7 @@ public class PlayerInput extends JPanel {
 		setLayout(new BorderLayout());
 		
 		JPanel inputPane = new JPanel();
-		inputPane.setLayout(new GridLayout(0, 1));
+//		inputPane.setLayout(new GridLayout(0, 1));
 		
 		player1Pane = newPlayer1Pane();
 		player2Pane = newPlayer2Pane();
@@ -40,7 +44,7 @@ public class PlayerInput extends JPanel {
 		JPanel pane = new JPanel();
 		pane.setLayout(new GridLayout(0, 1));
 		
-		JTextField player1Name = newPlayer1Name();
+		player1Name = newPlayer1Name();
 		JLabel player1Lbl = newPlayer1Lbl();
 		
 		pane.add(player1Lbl);
@@ -67,7 +71,7 @@ public class PlayerInput extends JPanel {
 		 JPanel pane = new JPanel();
 		 pane.setLayout(new GridLayout(0, 1));
 		 
-		 JTextField player2Name = newPlayer2Name();
+		 player2Name = newPlayer2Name();
 		 JLabel player2Lbl = newPlayer2Lbl();
 		 
 		 pane.add(player2Lbl);
@@ -93,6 +97,22 @@ public class PlayerInput extends JPanel {
 	
 	private JButton newSubmitBtn() {
 		JButton submit = new JButton("Submit");
+		submit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				
+				if (player1Name.getText().equals("") || player1Name.getText().equals("")) {
+					System.out.println("invalid input");
+					// handle error better
+				} else {
+					JPanel initGame = new TicTacToeGame(player1Name.getText(), player2Name.getText());
+					removeAll();
+					add(initGame, BorderLayout.CENTER);
+	                revalidate();
+	                repaint();
+				}
+			}
+		});
 		return submit;
 	}
 }
