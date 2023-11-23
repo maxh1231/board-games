@@ -67,11 +67,24 @@ public class TicTacToeGame extends JPanel {
 					if (checkWinner()) {
 						// handle game win
 						System.out.println("Win");
+						JPanel initScreen;
+						
+						if (currentMove == 0) {
+							initScreen = new TicTacToeWinner(player1);
+						} else {
+							initScreen = new TicTacToeWinner(player2);
+						}
+						
+						removeAll();
+						add(initScreen, BorderLayout.CENTER);
+		                revalidate();
+		                repaint();
 					}
 					
 					if (isTie) {
 						// handle tie game;
 						System.out.println("Tie");
+						playerTurn.setText("Tie Game!");
 					}
 					
 					handleMoveChange();
