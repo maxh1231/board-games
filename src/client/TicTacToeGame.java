@@ -15,6 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/**
+ * @author maxhu
+ */
 public class TicTacToeGame extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -33,7 +36,11 @@ public class TicTacToeGame extends JPanel {
 	
 	// Create constructor for 1 parameter if user selects AI
 	
-	
+	/**
+	 * 2 parameter constructor for player vs player
+	 * @param player1
+	 * @param player2
+	 */
 	public TicTacToeGame(String player1, String player2) {
 		this.player1 = player1;
 		this.player2 = player2;
@@ -47,6 +54,10 @@ public class TicTacToeGame extends JPanel {
 		add(gamePanel, BorderLayout.CENTER);
 	}
 
+	/**
+	 * Begins game, displaying 9 buttons with eventListeners
+	 * @return JPanel
+	 */
 	private JPanel newGamePanel() {
 		JPanel gamePanel = new JPanel();
 		gamePanel.setLayout(new GridLayout(3, 3));
@@ -96,6 +107,10 @@ public class TicTacToeGame extends JPanel {
 		return gamePanel;
 	}
 
+	/**
+	 * Button to be printed 9 times
+	 * @return JButton
+	 */
 	private JButton newBtn() {
 		JButton btn = new JButton();
 		btn.setFont(new Font("Arial", Font.PLAIN, 40));
@@ -129,6 +144,10 @@ public class TicTacToeGame extends JPanel {
 		}
 	}
 
+	/**
+	 * Checks winner on each move, looping through the 
+	 * @return
+	 */
 	private boolean checkWinner() {
 		for (int i = 0; i < winningMove.length; i++) {
 			if ((totals.get(currentMove) & winningMove[i]) == winningMove[i]) {

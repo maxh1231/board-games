@@ -11,6 +11,9 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * @author maxhu
+ */
 public class PlayerInput extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -40,6 +43,10 @@ public class PlayerInput extends JPanel {
 		add(submitBtn, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * Accepts input from player1
+	 * @return JPanel
+	 */
 	private JPanel newPlayer1Pane() {
 		JPanel pane = new JPanel();
 		pane.setLayout(new GridLayout(0, 1));
@@ -54,12 +61,20 @@ public class PlayerInput extends JPanel {
 		
 	}
 	
+	/**
+	 * Input for player1
+	 * @return JTextField
+	 */
 	private JTextField newPlayer1Name() {
 		JTextField player1Name = new JTextField();
 		player1Name.setHorizontalAlignment(SwingConstants.CENTER);
 		return player1Name;
 	}
 	
+	/**
+	 * player 1 label
+	 * @return JLabel
+	 */
 	private JLabel newPlayer1Lbl() {
 		JLabel player1Lbl = new JLabel();
 		player1Lbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -67,6 +82,10 @@ public class PlayerInput extends JPanel {
 		return player1Lbl;
 	}
 	
+	/**
+	 * Player2 label
+	 * @return JPanel
+	 */
 	private JPanel newPlayer2Pane() {
 		 JPanel pane = new JPanel();
 		 pane.setLayout(new GridLayout(0, 1));
@@ -80,6 +99,10 @@ public class PlayerInput extends JPanel {
 		 return pane;
 	}
 	
+	/**
+	 * Accepts input from player2
+	 * @return JTextField
+	 */
 	private JTextField newPlayer2Name() {
 		JTextField player2Name = new JTextField();
 		player2Name.setHorizontalAlignment(SwingConstants.CENTER);
@@ -87,6 +110,10 @@ public class PlayerInput extends JPanel {
 		return player2Name;
 	}
 	
+	/**
+	 * Player2 label
+	 * @return JLabel
+	 */
 	private JLabel newPlayer2Lbl() {
 		JLabel player2Lbl = new JLabel();
 		player2Lbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -94,7 +121,10 @@ public class PlayerInput extends JPanel {
 		return player2Lbl;
 	}
 
-	
+	/**
+	 * Submits input from both user
+	 * @return JButton
+	 */
 	private JButton newSubmitBtn() {
 		JButton submit = new JButton("Submit");
 		submit.addActionListener(new ActionListener() {

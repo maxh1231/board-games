@@ -12,12 +12,15 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * @author maxhu
+ */
 public class TicTacToeClient extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Create the panel.
+	 * Menu for TicTacToe Game options
 	 */
 	public TicTacToeClient() {
 		setLayout(new BorderLayout());
@@ -38,6 +41,10 @@ public class TicTacToeClient extends JPanel {
 		add(menuPane, BorderLayout.WEST);
 	}
 
+	/**
+	 * Button for player vs player
+	 * @return JButton
+	 */
 	private JButton newPlayBtn() {
 		JButton btnNewButton = new JButton("Play");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -52,16 +59,28 @@ public class TicTacToeClient extends JPanel {
 		return btnNewButton;
 	}
 	
+	/**
+	 * Button for player vs AI
+	 * @return JButton
+	 */
 	private JButton newPlayAIBtn() {
 		JButton playAiBtn = new JButton("Play (AI)");
 		return playAiBtn;
 	}
 	
+	/**
+	 * Button to view scores
+	 * @return JButton
+	 */
 	private JButton newScoresBtn() {
 		JButton scoresBtn = new JButton("Scores");
 		return scoresBtn;
 	}
 
+	/**
+	 * Image for Tic Tac Toe
+	 * @return JLabel
+	 */
 	private JLabel newGameIcon() {
 		JLabel gameIcon = new JLabel();
 		ImageIcon image = new ImageIcon(getClass().getResource("/client/images/tic-tac-toe.png"));

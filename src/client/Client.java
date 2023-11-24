@@ -18,6 +18,9 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.Component;
 
+/**
+ * @author maxhu
+ */
 public class Client extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -42,6 +45,7 @@ public class Client extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * Application's home menu, selecting which game to play
 	 */
 	public Client() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,6 +65,10 @@ public class Client extends JFrame {
 		contentPane.add(placeHolderLbl, BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * Application's title 
+	 * @return JLabel
+	 */
 	private JLabel newTitleLbl() {
 		JLabel titleLbl = new JLabel("Board Games");
 		titleLbl.setFont(new Font("Serif", Font.PLAIN, 18));
@@ -68,6 +76,10 @@ public class Client extends JFrame {
 		return titleLbl;
 	}
 
+	/**
+	 * Panel for options to select game
+	 * @return JPanel
+	 */
 	private JPanel newGameSelectPane() {
 		JPanel gameSelectPane = new JPanel();
 		GridLayout layout = new GridLayout(1, 0);
@@ -83,6 +95,10 @@ public class Client extends JFrame {
 		return gameSelectPane;
 	}
 	
+	/**
+	 * Button to select Tic Tac Toe game
+	 * @return JButton
+	 */
 	private JButton newTicTacToeBtn() {
 		JButton ticTacToeBtn = new JButton();
 		ticTacToeBtn.addActionListener(new ActionListener() {
@@ -104,6 +120,10 @@ public class Client extends JFrame {
 		return ticTacToeBtn;
 	}
 
+	/**
+	 * Button to select Puzzle game
+	 * @return JButton
+	 */
 	private JButton newPuzzleBtn() {
 		JButton puzzleBtn = new JButton();
 		puzzleBtn.addActionListener(new ActionListener() {
@@ -121,6 +141,10 @@ public class Client extends JFrame {
 		return puzzleBtn;
 	}
 
+	/**
+	 * Used to format BorderLayouts
+	 * @return JLabel
+	 */
 	private JLabel newPlaceholderLbl() {
 		JLabel placeholderLbl = new JLabel();
 		return placeholderLbl;
