@@ -126,20 +126,25 @@ public class Client extends JFrame {
 	 */
 	private JButton newPuzzleBtn() {
 		JButton puzzleBtn = new JButton();
-		puzzleBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				// initialize puzzle game
-			}
-		});
-		
-		ImageIcon image = new ImageIcon(getClass().getResource("/client/images/puzzle.png"));
-		Image img = image.getImage();
-		Image newImg = img.getScaledInstance(150, 128, java.awt.Image.SCALE_SMOOTH);
-		image = new ImageIcon(newImg);
-		puzzleBtn.setIcon(image);
-		
-		return puzzleBtn;
-	}
+        puzzleBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                PuzzleGame puzzleGame = new PuzzleGame(); // Create an instance of your puzzle game
+                contentPane.removeAll(); // Remove current content
+                contentPane.add(puzzleGame, BorderLayout.CENTER); // Add the puzzle game panel
+                contentPane.revalidate(); // Revalidate the content pane
+                contentPane.repaint(); // Repaint the content pane
+            }
+        });
+
+        // Set icon for puzzleBtn...
+        ImageIcon image = new ImageIcon(getClass().getResource("/client/images/puzzle.png"));
+        Image img = image.getImage();
+        Image newImg = img.getScaledInstance(150, 128, java.awt.Image.SCALE_SMOOTH);
+        image = new ImageIcon(newImg);
+        puzzleBtn.setIcon(image);
+
+        return puzzleBtn;
+    }
 
 	/**
 	 * Used to format BorderLayouts
