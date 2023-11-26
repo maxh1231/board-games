@@ -22,6 +22,8 @@ public class PlayerInput extends JPanel {
 	private JTextField player1Name;
 	private JTextField player2Name;
 	
+	// Create parameterized constructor for if user selects play vs AI
+	
 	/**
 	 * Create the panel.
 	 */
@@ -29,7 +31,6 @@ public class PlayerInput extends JPanel {
 		setLayout(new BorderLayout());
 		
 		JPanel inputPane = new JPanel();
-//		inputPane.setLayout(new GridLayout(0, 1));
 		
 		player1Pane = newPlayer1Pane();
 		player2Pane = newPlayer2Pane();
