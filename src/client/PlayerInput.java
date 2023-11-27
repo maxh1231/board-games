@@ -23,7 +23,10 @@ public class PlayerInput extends JPanel {
 	private JTextField player2Name;
 	private boolean singlePlayer = false;
 
-	// Create parameterized constructor for if user selects play vs AI
+	/**
+	 * Single parameter constructor for if user selects play vs AI
+	 * @param singlePlayer
+	 */
 	public PlayerInput(boolean singlePlayer) {
 		this.singlePlayer = true;
 		setLayout(new BorderLayout());
@@ -41,7 +44,7 @@ public class PlayerInput extends JPanel {
 	}
 
 	/**
-	 * Create the panel.
+	 * Default constructor for player vs player
 	 */
 	public PlayerInput() {
 		setLayout(new BorderLayout());
@@ -62,7 +65,6 @@ public class PlayerInput extends JPanel {
 
 	/**
 	 * Accepts input from player1
-	 * 
 	 * @return JPanel
 	 */
 	private JPanel newPlayer1Pane() {
@@ -81,7 +83,6 @@ public class PlayerInput extends JPanel {
 
 	/**
 	 * Input for player1
-	 * 
 	 * @return JTextField
 	 */
 	private JTextField newPlayer1Name() {
@@ -92,7 +93,6 @@ public class PlayerInput extends JPanel {
 
 	/**
 	 * player 1 label
-	 * 
 	 * @return JLabel
 	 */
 	private JLabel newPlayer1Lbl() {
@@ -104,7 +104,6 @@ public class PlayerInput extends JPanel {
 
 	/**
 	 * Player2 label
-	 * 
 	 * @return JPanel
 	 */
 	private JPanel newPlayer2Pane() {
@@ -122,7 +121,6 @@ public class PlayerInput extends JPanel {
 
 	/**
 	 * Accepts input from player2
-	 * 
 	 * @return JTextField
 	 */
 	private JTextField newPlayer2Name() {
@@ -134,7 +132,6 @@ public class PlayerInput extends JPanel {
 
 	/**
 	 * Player2 label
-	 * 
 	 * @return JLabel
 	 */
 	private JLabel newPlayer2Lbl() {
@@ -146,7 +143,6 @@ public class PlayerInput extends JPanel {
 
 	/**
 	 * Submits input from both user
-	 * 
 	 * @return JButton
 	 */
 	private JButton newSubmitBtn() {

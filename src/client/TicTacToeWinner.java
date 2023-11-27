@@ -22,7 +22,7 @@ import java.util.Scanner;
 import java.awt.event.ActionEvent;
 
 /**
- * @author
+ * @author Max Humpherys
  */
 public class TicTacToeWinner extends JPanel {
 
@@ -32,7 +32,7 @@ public class TicTacToeWinner extends JPanel {
 	private boolean isTie;
 
 	/**
-	 * Notifies user of win and prompts to save score
+	 * Notifies user of win and prompts to save score, or tie
 	 */
 	public TicTacToeWinner(String winner, String loser, boolean isTie) {
 		this.winner = winner;
@@ -51,7 +51,6 @@ public class TicTacToeWinner extends JPanel {
 
 	/**
 	 * JPanel for Yes and No buttons on prompts
-	 * 
 	 * @return JPanel
 	 */
 	private JPanel newBtnPane() {
@@ -69,7 +68,6 @@ public class TicTacToeWinner extends JPanel {
 
 	/**
 	 * Accepts a string to represent the buttons text
-	 * 
 	 * @param btnText
 	 * @return JButton
 	 */
@@ -104,6 +102,7 @@ public class TicTacToeWinner extends JPanel {
 						revalidate();
 						repaint();
 					} else {
+						// User win
 						saveScore(winner);
 						TicTacToeClient newGame = new TicTacToeClient();
 						removeAll();
@@ -126,7 +125,6 @@ public class TicTacToeWinner extends JPanel {
 
 	/**
 	 * Notifies which player that won, using the winner field
-	 * 
 	 * @return JLabel
 	 */
 	private JLabel newWinnerLbl() {
@@ -145,7 +143,6 @@ public class TicTacToeWinner extends JPanel {
 	/**
 	 * Saves a new line in leader board file or increments an existing name's number
 	 * of wins
-	 * 
 	 * @param winner
 	 */
 	private void saveScore(String winner) {
@@ -171,7 +168,6 @@ public class TicTacToeWinner extends JPanel {
 			int wins = Character.getNumericValue(line.charAt(line.length() - 1));
 
 			if (winner.toLowerCase().equals(name.toLowerCase())) {
-				System.out.println("true");
 				lines.set(i, name + " " + Integer.toString(wins + 1));
 				hasMatch = true;
 			}

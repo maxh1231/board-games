@@ -19,7 +19,7 @@ import java.awt.Font;
 import java.awt.Component;
 
 /**
- * @author maxhu
+ * @author Max Humpherys
  */
 public class Client extends JFrame {
 

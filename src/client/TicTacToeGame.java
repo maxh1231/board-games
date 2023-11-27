@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
 
 /**
  * Board of 9 squares to play Tic Tac Toe
- * @author maxhu
+ * @author Max Humpherys
  */
 public class TicTacToeGame extends JPanel {
 
@@ -73,7 +73,6 @@ public class TicTacToeGame extends JPanel {
 
 	/**
 	 * Begins game, displaying 9 buttons with eventListeners
-	 * 
 	 * @return JPanel
 	 */
 	private JPanel newGamePanel() {
@@ -92,12 +91,9 @@ public class TicTacToeGame extends JPanel {
 						totals.set(1, totals.get(1) + Integer.parseInt(btn.getName()));
 						btn.setText("O");
 					}
-					
-					System.out.println(Integer.parseInt(btn.getName()));
 
 					if (checkWinner()) {
 						// handle game win
-						System.out.println("Win");
 						JPanel initScreen;
 
 						if (currentMove == 0) {
@@ -131,6 +127,10 @@ public class TicTacToeGame extends JPanel {
 		return gamePanel;
 	}
 
+	/**
+	 * Board to be played if user vs AI
+	 * @return JPanel
+	 */
 	private JPanel aiGamePanel() {
 		JPanel gamePanel = new JPanel();
 		gamePanel.setLayout(new GridLayout(3, 3));
@@ -172,10 +172,6 @@ public class TicTacToeGame extends JPanel {
 					}, 1500);
 					
 					if (isTie) {
-						// handle tie game;
-						System.out.println("Tie");
-						playerTurn.setText("Tie Game!");
-						
 						JPanel initScreen = new TicTacToeWinner(player1, player2, isTie);
 						removeAll();
 						add(initScreen, BorderLayout.CENTER);
@@ -202,14 +198,13 @@ public class TicTacToeGame extends JPanel {
 
 	/**
 	 * Label for current player's turn
-	 * @return
+	 * @return JLabel
 	 */
 	private JLabel newTurnLbl() {
 		JLabel playerTurn = new JLabel();
 		playerTurn.setOpaque(true);
 		playerTurn.setHorizontalAlignment(SwingConstants.CENTER);
 		playerTurn.setText(player1 + "'s Turn");
-		System.out.println(player1);
 		return playerTurn;
 	}
 
@@ -233,7 +228,6 @@ public class TicTacToeGame extends JPanel {
 		ArrayList<JButton> cleanBtns = new ArrayList<JButton>();
 
 		for (int i = 0; i < btns.length; i++) {
-			System.out.println(btns[i].getName());
 			if (btns[i].getText().equals("")) {
 				cleanBtns.add(btns[i]);
 			}
@@ -243,11 +237,8 @@ public class TicTacToeGame extends JPanel {
 		int index = rand.nextInt(cleanBtns.size());
 		cleanBtns.get(index).setText("O");
 		totals.set(1, totals.get(1) + Integer.parseInt(cleanBtns.get(index).getName()));
-		System.out.println(btns[index].getName());
 
 		if (checkWinner()) {
-			// handle game win
-			System.out.println("Win");
 			JPanel initScreen;
 
 			if (currentMove == 0) {
@@ -263,7 +254,6 @@ public class TicTacToeGame extends JPanel {
 		}
 		
 		if (isTie) {
-			System.out.println("Tie");
 			playerTurn.setText("Tie Game!");
 			JPanel initScreen = new TicTacToeWinner(player1, player2, isTie);
 			removeAll();
@@ -280,7 +270,6 @@ public class TicTacToeGame extends JPanel {
 	 * @return true if winner is detected
 	 */
 	private boolean checkWinner() {
-//		System.out.println(totals);
 		for (int i = 0; i < winningMove.length; i++) {
 			if ((totals.get(currentMove) & winningMove[i]) == winningMove[i]) {
 				return true;
