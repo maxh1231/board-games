@@ -92,6 +92,8 @@ public class TicTacToeGame extends JPanel {
 						totals.set(1, totals.get(1) + Integer.parseInt(btn.getName()));
 						btn.setText("O");
 					}
+					
+					System.out.println(Integer.parseInt(btn.getName()));
 
 					if (checkWinner()) {
 						// handle game win
@@ -99,9 +101,9 @@ public class TicTacToeGame extends JPanel {
 						JPanel initScreen;
 
 						if (currentMove == 0) {
-							initScreen = new TicTacToeWinner(player1);
+							initScreen = new TicTacToeWinner(player1, player2, isTie);
 						} else {
-							initScreen = new TicTacToeWinner(player2);
+							initScreen = new TicTacToeWinner(player2, player1, isTie);
 						}
 
 						removeAll();
@@ -111,9 +113,13 @@ public class TicTacToeGame extends JPanel {
 					}
 
 					if (isTie) {
-						// handle tie game;
-						System.out.println("Tie");
-						playerTurn.setText("Tie Game!");
+						JPanel initScreen;
+						initScreen = new TicTacToeWinner(player1, player2, isTie);
+						
+						removeAll();
+						add(initScreen, BorderLayout.CENTER);
+						revalidate();
+						repaint();
 					}
 
 					handleMoveChange();
@@ -136,16 +142,15 @@ public class TicTacToeGame extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					btns[innerI].setText("X");
 					totals.set(0, totals.get(0) + Integer.parseInt(btns[innerI].getName()));
-
+					
 					if (checkWinner()) {
 						// handle game win
-						System.out.println("Win");
 						JPanel initScreen;
 
 						if (currentMove == 0) {
-							initScreen = new TicTacToeWinner(player1);
+							initScreen = new TicTacToeWinner(player1, player2, isTie);
 						} else {
-							initScreen = new TicTacToeWinner(player2);
+							initScreen = new TicTacToeWinner(player2, player1, isTie);
 						}
 
 						removeAll();
@@ -154,11 +159,7 @@ public class TicTacToeGame extends JPanel {
 						repaint();
 					}
 
-					if (isTie) {
-						// handle tie game;
-						System.out.println("Tie");
-						playerTurn.setText("Tie Game!");
-					}
+					
 
 					handleMoveChange();
 					final Timer t = new Timer();
@@ -168,7 +169,19 @@ public class TicTacToeGame extends JPanel {
 							handleAiMove();
 							t.cancel();
 						}
-					}, 3000);
+					}, 1500);
+					
+					if (isTie) {
+						// handle tie game;
+						System.out.println("Tie");
+						playerTurn.setText("Tie Game!");
+						
+						JPanel initScreen = new TicTacToeWinner(player1, player2, isTie);
+						removeAll();
+						add(initScreen, BorderLayout.CENTER);
+						revalidate();
+						repaint();
+					}
 				}
 			});
 			gamePanel.add(btns[innerI]);
@@ -220,6 +233,7 @@ public class TicTacToeGame extends JPanel {
 		ArrayList<JButton> cleanBtns = new ArrayList<JButton>();
 
 		for (int i = 0; i < btns.length; i++) {
+			System.out.println(btns[i].getName());
 			if (btns[i].getText().equals("")) {
 				cleanBtns.add(btns[i]);
 			}
@@ -228,7 +242,8 @@ public class TicTacToeGame extends JPanel {
 		Random rand = new Random();
 		int index = rand.nextInt(cleanBtns.size());
 		cleanBtns.get(index).setText("O");
-		totals.set(1, totals.get(1) + Integer.parseInt(btns[index].getName()));
+		totals.set(1, totals.get(1) + Integer.parseInt(cleanBtns.get(index).getName()));
+		System.out.println(btns[index].getName());
 
 		if (checkWinner()) {
 			// handle game win
@@ -236,11 +251,21 @@ public class TicTacToeGame extends JPanel {
 			JPanel initScreen;
 
 			if (currentMove == 0) {
-				initScreen = new TicTacToeWinner(player1);
+				initScreen = new TicTacToeWinner(player1, player2, isTie);
 			} else {
-				initScreen = new TicTacToeWinner(player2);
+				initScreen = new TicTacToeWinner(player2, player1, isTie);
 			}
 
+			removeAll();
+			add(initScreen, BorderLayout.CENTER);
+			revalidate();
+			repaint();
+		}
+		
+		if (isTie) {
+			System.out.println("Tie");
+			playerTurn.setText("Tie Game!");
+			JPanel initScreen = new TicTacToeWinner(player1, player2, isTie);
 			removeAll();
 			add(initScreen, BorderLayout.CENTER);
 			revalidate();
@@ -255,7 +280,7 @@ public class TicTacToeGame extends JPanel {
 	 * @return true if winner is detected
 	 */
 	private boolean checkWinner() {
-		System.out.println(currentMove);
+//		System.out.println(totals);
 		for (int i = 0; i < winningMove.length; i++) {
 			if ((totals.get(currentMove) & winningMove[i]) == winningMove[i]) {
 				return true;

@@ -28,12 +28,16 @@ public class TicTacToeWinner extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private String winner;
+	private String loser;
+	private boolean isTie;
 
 	/**
 	 * Notifies user of win and prompts to save score
 	 */
-	public TicTacToeWinner(String winner) {
+	public TicTacToeWinner(String winner, String loser, boolean isTie) {
 		this.winner = winner;
+		this.loser = loser;
+		this.isTie = isTie;
 
 		setLayout(new BorderLayout());
 
@@ -74,18 +78,47 @@ public class TicTacToeWinner extends JPanel {
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (submitBtn.getText().equals("Yes")) {
-					// save to file
-					saveScore(winner);
+
+					// PVP tie
+					if (isTie && !loser.equals("AI")) {
+						TicTacToeGame newGame = new TicTacToeGame(winner, loser);
+						removeAll();
+						add(newGame, BorderLayout.CENTER);
+						revalidate();
+						repaint();
+						
+						// AI Tie
+					} else if (isTie && loser.equals("AI")) {
+						// loser should be AI in the event of an AI tie
+						TicTacToeGame newGame = new TicTacToeGame(winner);
+						removeAll();
+						add(newGame, BorderLayout.CENTER);
+						revalidate();
+						repaint();
+						
+						// AI win
+					} else if (winner.equals("AI")) {
+						TicTacToeGame newGame = new TicTacToeGame(loser);
+						removeAll();
+						add(newGame, BorderLayout.CENTER);
+						revalidate();
+						repaint();
+					} else {
+						saveScore(winner);
+						TicTacToeClient newGame = new TicTacToeClient();
+						removeAll();
+						add(newGame, BorderLayout.CENTER);
+						revalidate();
+						repaint();
+					}
+
 				} else {
-					System.out.println("No");
-					// home screen
+					TicTacToeClient newGame = new TicTacToeClient();
+					removeAll();
+					add(newGame, BorderLayout.CENTER);
+					revalidate();
+					repaint();
 				}
-				
-				TicTacToeClient newGame = new TicTacToeClient();
-				removeAll();
-				add(newGame, BorderLayout.CENTER);
-                revalidate();
-                repaint();
 			}
 		});
 		return submitBtn;
@@ -97,13 +130,22 @@ public class TicTacToeWinner extends JPanel {
 	 * @return JLabel
 	 */
 	private JLabel newWinnerLbl() {
-		JLabel winnerLbl = new JLabel("Congrats " + winner + "! Would you like to save your score?");
+		JLabel winnerLbl = new JLabel();
+		if (isTie) {
+			winnerLbl.setText("Tie game! Would you like to play again?");
+		} else if (winner.equals("AI")) {
+			winnerLbl.setText("AI won! Would you like to play again?");
+		} else {
+			winnerLbl.setText("Congrats " + winner + "! Would you like to save your score?");
+		}
 		winnerLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		return winnerLbl;
 	}
 
 	/**
-	 * Saves a new line in leader board file or increments an existing name's number of wins
+	 * Saves a new line in leader board file or increments an existing name's number
+	 * of wins
+	 * 
 	 * @param winner
 	 */
 	private void saveScore(String winner) {
@@ -127,18 +169,18 @@ public class TicTacToeWinner extends JPanel {
 			String line = lines.get(i);
 			String name = line.substring(0, line.indexOf(" "));
 			int wins = Character.getNumericValue(line.charAt(line.length() - 1));
-			
+
 			if (winner.toLowerCase().equals(name.toLowerCase())) {
 				System.out.println("true");
 				lines.set(i, name + " " + Integer.toString(wins + 1));
 				hasMatch = true;
 			}
 		}
-		
+
 		if (!hasMatch) {
 			lines.add(winner + " 1");
-		}		
-		
+		}
+
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
 			for (String line : lines) {
 				writer.write(line);
