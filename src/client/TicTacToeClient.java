@@ -3,14 +3,13 @@ package client;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 /**
  * @author Max Humpherys
@@ -83,6 +82,15 @@ public class TicTacToeClient extends JPanel {
 	 */
 	private JButton newScoresBtn() {
 		JButton scoresBtn = new JButton("Scores");
+		scoresBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanel scoresScreen = new DisplayLeaderboard();
+                removeAll();
+                add(scoresScreen, BorderLayout.CENTER);
+                revalidate();
+                repaint();
+			}
+		});
 		return scoresBtn;
 	}
 
@@ -92,6 +100,7 @@ public class TicTacToeClient extends JPanel {
 	 */
 	private JLabel newGameIcon() {
 		JLabel gameIcon = new JLabel();
+		gameIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		ImageIcon image = new ImageIcon(getClass().getResource("/client/images/tic-tac-toe.png"));
 		Image img = image.getImage();
 		Image newImg = img.getScaledInstance(150, 128, java.awt.Image.SCALE_SMOOTH);

@@ -2,4 +2,4 @@ max 8
 john 2
 dylan 1
 h 1
-AI 7
+

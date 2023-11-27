@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /**
- * @author maxhu
+ * @author Max Humpherys
  */
 public class PlayerInput extends JPanel {
 
