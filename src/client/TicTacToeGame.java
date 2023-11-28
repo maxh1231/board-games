@@ -8,15 +8,19 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import java.awt.Color;
 
 /**
- * @author maxhu
+ * Board of 9 squares to play Tic Tac Toe
+ * @author Max Humpherys
  */
 public class TicTacToeGame extends JPanel {
 
@@ -29,19 +33,34 @@ public class TicTacToeGame extends JPanel {
 	private int[] btnVals = { 1, 2, 4, 8, 16, 32, 64, 128, 256 };
 	private List<Integer> totals = new ArrayList<>(Arrays.asList(0, 0));
 	private boolean isTie = false;
+	private JButton[] btns = { newBtn(), newBtn(), newBtn(), newBtn(), newBtn(), newBtn(), newBtn(), newBtn(),
+			newBtn() };
 
 	/**
-	 * Create the panel.
+	 * Single parameter constructor for PVE
+	 * @param player1
 	 */
-	
-	// Create constructor for 1 parameter if user selects AI
-	
+	public TicTacToeGame(String player1) {
+		setBackground(Color.LIGHT_GRAY);
+		this.player1 = player1;
+		this.player2 = "AI";
+		setLayout(new BorderLayout());
+		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		playerTurn = newTurnLbl();
+
+		JPanel gamePanel = aiGamePanel();
+
+		add(playerTurn, BorderLayout.NORTH);
+		add(gamePanel, BorderLayout.CENTER);
+	}
+
 	/**
-	 * 2 parameter constructor for player vs player
+	 * Double parameter constructor for PVP
 	 * @param player1
 	 * @param player2
 	 */
 	public TicTacToeGame(String player1, String player2) {
+		setBackground(Color.LIGHT_GRAY);
 		this.player1 = player1;
 		this.player2 = player2;
 		setLayout(new BorderLayout());
@@ -60,7 +79,8 @@ public class TicTacToeGame extends JPanel {
 	 */
 	private JPanel newGamePanel() {
 		JPanel gamePanel = new JPanel();
-		gamePanel.setLayout(new GridLayout(3, 3));
+		gamePanel.setBackground(Color.LIGHT_GRAY);
+		gamePanel.setLayout(new GridLayout(3, 3, 10, 10));
 
 		for (int i = 0; i < 9; i++) {
 			JButton btn = newBtn();
@@ -74,34 +94,97 @@ public class TicTacToeGame extends JPanel {
 						totals.set(1, totals.get(1) + Integer.parseInt(btn.getName()));
 						btn.setText("O");
 					}
-					
+
 					if (checkWinner()) {
 						// handle game win
-						System.out.println("Win");
 						JPanel initScreen;
-						
+
 						if (currentMove == 0) {
-							initScreen = new TicTacToeWinner(player1);
+							initScreen = new TicTacToeWinner(player1, player2, isTie);
 						} else {
-							initScreen = new TicTacToeWinner(player2);
+							initScreen = new TicTacToeWinner(player2, player1, isTie);
 						}
+
+						removeAll();
+						add(initScreen, BorderLayout.CENTER);
+						revalidate();
+						repaint();
+					}
+
+					if (isTie) {
+						JPanel initScreen;
+						initScreen = new TicTacToeWinner(player1, player2, isTie);
 						
 						removeAll();
 						add(initScreen, BorderLayout.CENTER);
-		                revalidate();
-		                repaint();
+						revalidate();
+						repaint();
 					}
-					
-					if (isTie) {
-						// handle tie game;
-						System.out.println("Tie");
-						playerTurn.setText("Tie Game!");
-					}
-					
+
 					handleMoveChange();
 				}
 			});
 			gamePanel.add(btn);
+		}
+
+		return gamePanel;
+	}
+
+	/**
+	 * Board to be played if user vs AI
+	 * @return JPanel
+	 */
+	private JPanel aiGamePanel() {
+		JPanel gamePanel = new JPanel();
+		gamePanel.setBackground(Color.LIGHT_GRAY);
+		gamePanel.setLayout(new GridLayout(3, 3, 10, 10));
+
+		for (int i = 0; i < btns.length; i++) {
+			btns[i].setName(Integer.toString(btnVals[i]));
+			final int innerI = i;
+			btns[i].addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					btns[innerI].setText("X");
+					totals.set(0, totals.get(0) + Integer.parseInt(btns[innerI].getName()));
+					
+					if (checkWinner()) {
+						// handle game win
+						JPanel initScreen;
+
+						if (currentMove == 0) {
+							initScreen = new TicTacToeWinner(player1, player2, isTie);
+						} else {
+							initScreen = new TicTacToeWinner(player2, player1, isTie);
+						}
+
+						removeAll();
+						add(initScreen, BorderLayout.CENTER);
+						revalidate();
+						repaint();
+					}
+
+					
+
+					handleMoveChange();
+					final Timer t = new Timer();
+					t.schedule(new TimerTask() {
+						@Override
+						public void run() {
+							handleAiMove();
+							t.cancel();
+						}
+					}, 1500);
+					
+					if (isTie) {
+						JPanel initScreen = new TicTacToeWinner(player1, player2, isTie);
+						removeAll();
+						add(initScreen, BorderLayout.CENTER);
+						revalidate();
+						repaint();
+					}
+				}
+			});
+			gamePanel.add(btns[innerI]);
 		}
 
 		return gamePanel;
@@ -119,15 +202,15 @@ public class TicTacToeGame extends JPanel {
 
 	/**
 	 * Label for current player's turn
-	 * 
-	 * @return
+	 * @return JLabel
 	 */
 	private JLabel newTurnLbl() {
 		JLabel playerTurn = new JLabel();
+		playerTurn.setBackground(Color.LIGHT_GRAY);
+		playerTurn.setFont(new Font("Monospaced", Font.BOLD, 17));
 		playerTurn.setOpaque(true);
 		playerTurn.setHorizontalAlignment(SwingConstants.CENTER);
 		playerTurn.setText(player1 + "'s Turn");
-		System.out.println(player1);
 		return playerTurn;
 	}
 
@@ -145,8 +228,52 @@ public class TicTacToeGame extends JPanel {
 	}
 
 	/**
-	 * Checks winner on each move, looping through the 
-	 * @return
+	 * Chooses a random button to add an "O" to
+	 */
+	private void handleAiMove() {
+		ArrayList<JButton> cleanBtns = new ArrayList<JButton>();
+
+		for (int i = 0; i < btns.length; i++) {
+			if (btns[i].getText().equals("")) {
+				cleanBtns.add(btns[i]);
+			}
+		}
+
+		Random rand = new Random();
+		int index = rand.nextInt(cleanBtns.size());
+		cleanBtns.get(index).setText("O");
+		totals.set(1, totals.get(1) + Integer.parseInt(cleanBtns.get(index).getName()));
+
+		if (checkWinner()) {
+			JPanel initScreen;
+
+			if (currentMove == 0) {
+				initScreen = new TicTacToeWinner(player1, player2, isTie);
+			} else {
+				initScreen = new TicTacToeWinner(player2, player1, isTie);
+			}
+
+			removeAll();
+			add(initScreen, BorderLayout.CENTER);
+			revalidate();
+			repaint();
+		}
+		
+		if (isTie) {
+			playerTurn.setText("Tie Game!");
+			JPanel initScreen = new TicTacToeWinner(player1, player2, isTie);
+			removeAll();
+			add(initScreen, BorderLayout.CENTER);
+			revalidate();
+			repaint();
+		}
+		
+		handleMoveChange();
+	}
+
+	/**
+	 * Checks winner on each move, looping through the
+	 * @return true if winner is detected
 	 */
 	private boolean checkWinner() {
 		for (int i = 0; i < winningMove.length; i++) {
