@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Split image into 9 smaller images
+ * @author Scott Stebbings
+ */
 public class ImageSplitter {
 
 	public static List<BufferedImage> splitImage(String filePath, int rows, int cols) {
