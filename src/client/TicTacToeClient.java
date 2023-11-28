@@ -74,6 +74,10 @@ public class TicTacToeClient extends JPanel {
 	 */
 	private JButton newScoresBtn() {
 		JButton scoresBtn = new JButton("Scores");
+		scoresBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		return scoresBtn;
 	}
 

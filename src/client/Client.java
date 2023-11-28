@@ -128,9 +128,9 @@ public class Client extends JFrame {
 		JButton puzzleBtn = new JButton();
         puzzleBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                PuzzleGame puzzleGame = new PuzzleGame(); // Create an instance of your puzzle game
+                PuzzleInput puzzleInput = new PuzzleInput(); // Create an instance of your puzzle game
                 contentPane.removeAll(); // Remove current content
-                contentPane.add(puzzleGame, BorderLayout.CENTER); // Add the puzzle game panel
+                contentPane.add(puzzleInput, BorderLayout.CENTER); // Add the puzzle game panel
                 contentPane.revalidate(); // Revalidate the content pane
                 contentPane.repaint(); // Repaint the content pane
             }

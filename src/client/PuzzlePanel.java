@@ -6,28 +6,42 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.awt.event.ActionListener;
+
 
 public class PuzzlePanel extends JPanel {
 
-    private int emptyIndex; // Index of the empty space
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int emptyIndex; // Index of the empty space
     private List<ImageIcon> initialIcons; // To store the initial state of the puzzle
     private JPanel gridPanel; // Panel to hold the puzzle pieces
     private JButton solveButton; // Button to solve the puzzle
+    private JTextField textField;
 
     public PuzzlePanel() {
         super(new BorderLayout()); // Use BorderLayout for the PuzzlePanel
-        gridPanel = new JPanel(new GridLayout(3, 3, 0, 0)); // This will hold the puzzle pieces
+        gridPanel = new JPanel(); // This will hold the puzzle pieces
         initialIcons = new ArrayList<>();
         initializePuzzle();
         add(gridPanel, BorderLayout.CENTER); // Add gridPanel to the center of PuzzlePanel
+        gridPanel.setLayout(new BorderLayout(0, 0));
+        
+        textField = new JTextField();
+        gridPanel.add(textField, BorderLayout.NORTH);
+        textField.setColumns(10);
 
         solveButton = new JButton("Solve");
+      
+    
         solveButton.addActionListener(e -> solvePuzzle());
         add(solveButton, BorderLayout.SOUTH); // Add the solve button to the south of PuzzlePanel
     }
 
     private void initializePuzzle() {
-        List<BufferedImage> pieces = ImageSplitter.splitImage("C:\\Users\\Scott\\Pictures\\CSIS1410\\chair.jpg", 3, 3);
+        List<BufferedImage> pieces = ImageSplitter.splitImage("src/client/images/puzzle.png", 3, 3);
 
         // First, save the initial state before shuffling
         initialIcons = new ArrayList<>(pieces.size());
