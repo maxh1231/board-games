@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import java.awt.Color;
 
 /**
  * Board of 9 squares to play Tic Tac Toe
@@ -41,6 +41,7 @@ public class TicTacToeGame extends JPanel {
 	 * @param player1
 	 */
 	public TicTacToeGame(String player1) {
+		setBackground(Color.LIGHT_GRAY);
 		this.player1 = player1;
 		this.player2 = "AI";
 		setLayout(new BorderLayout());
@@ -59,6 +60,7 @@ public class TicTacToeGame extends JPanel {
 	 * @param player2
 	 */
 	public TicTacToeGame(String player1, String player2) {
+		setBackground(Color.LIGHT_GRAY);
 		this.player1 = player1;
 		this.player2 = player2;
 		setLayout(new BorderLayout());
@@ -77,7 +79,8 @@ public class TicTacToeGame extends JPanel {
 	 */
 	private JPanel newGamePanel() {
 		JPanel gamePanel = new JPanel();
-		gamePanel.setLayout(new GridLayout(3, 3));
+		gamePanel.setBackground(Color.LIGHT_GRAY);
+		gamePanel.setLayout(new GridLayout(3, 3, 10, 10));
 
 		for (int i = 0; i < 9; i++) {
 			JButton btn = newBtn();
@@ -133,7 +136,8 @@ public class TicTacToeGame extends JPanel {
 	 */
 	private JPanel aiGamePanel() {
 		JPanel gamePanel = new JPanel();
-		gamePanel.setLayout(new GridLayout(3, 3));
+		gamePanel.setBackground(Color.LIGHT_GRAY);
+		gamePanel.setLayout(new GridLayout(3, 3, 10, 10));
 
 		for (int i = 0; i < btns.length; i++) {
 			btns[i].setName(Integer.toString(btnVals[i]));
@@ -202,6 +206,8 @@ public class TicTacToeGame extends JPanel {
 	 */
 	private JLabel newTurnLbl() {
 		JLabel playerTurn = new JLabel();
+		playerTurn.setBackground(Color.LIGHT_GRAY);
+		playerTurn.setFont(new Font("Monospaced", Font.BOLD, 17));
 		playerTurn.setOpaque(true);
 		playerTurn.setHorizontalAlignment(SwingConstants.CENTER);
 		playerTurn.setText(player1 + "'s Turn");

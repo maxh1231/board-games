@@ -2,8 +2,8 @@ package client;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,6 +15,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Color;
 
 /**
  * @author Max Humpherys
@@ -46,11 +49,13 @@ public class Client extends JFrame {
 	 * Application's home menu, selecting which game to play
 	 */
 	public Client() {
+		setBackground(new Color(192, 192, 192));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 347);
+		setBounds(100, 100, 500, 347);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(50, 50));
+		contentPane.setLayout(new BorderLayout());
 		setContentPane(contentPane);
 		
 		JLabel titleLbl = newTitleLbl();
@@ -59,8 +64,8 @@ public class Client extends JFrame {
 		gameSelectPane = newGameSelectPane();
 		contentPane.add(gameSelectPane, BorderLayout.CENTER);
 		
-		JLabel placeHolderLbl = newPlaceholderLbl();
-		contentPane.add(placeHolderLbl, BorderLayout.SOUTH);
+//		JLabel placeHolderLbl = newPlaceholderLbl();
+//		contentPane.add(placeHolderLbl, BorderLayout.SOUTH);
 	}
 	
 	/**
@@ -69,7 +74,8 @@ public class Client extends JFrame {
 	 */
 	private JLabel newTitleLbl() {
 		JLabel titleLbl = new JLabel("Board Games");
-		titleLbl.setFont(new Font("Serif", Font.PLAIN, 18));
+		titleLbl.setBackground(Color.LIGHT_GRAY);
+		titleLbl.setFont(new Font("Monospaced", Font.BOLD, 32));
 		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		return titleLbl;
 	}
@@ -79,16 +85,19 @@ public class Client extends JFrame {
 	 * @return JPanel
 	 */
 	private JPanel newGameSelectPane() {
-		JPanel gameSelectPane = new JPanel();
-		GridLayout layout = new GridLayout(1, 0);
-		layout.setHgap(25);
-		layout.setVgap(25);
-		gameSelectPane.setLayout(layout);
-		
+		JPanel gameSelectPane = new JPanel(new GridBagLayout());
+		gameSelectPane.setBackground(Color.LIGHT_GRAY);
+		GridBagConstraints c = new GridBagConstraints();
+
 		JButton ticTacToeBtn = newTicTacToeBtn();
+		c.insets = new Insets(0, 0, 0, 10);
+		
+		gameSelectPane.add(ticTacToeBtn, c);
+
 		JButton puzzleBtn = newPuzzleBtn();
-		gameSelectPane.add(ticTacToeBtn);
-		gameSelectPane.add(puzzleBtn);
+		c.insets = new Insets(0, 10, 0, 0);
+
+		gameSelectPane.add(puzzleBtn, c);
 		
 		return gameSelectPane;
 	}
@@ -103,7 +112,7 @@ public class Client extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	JPanel tic = new TicTacToeClient();
                 contentPane.removeAll();
-                contentPane.add(tic, BorderLayout.CENTER);
+                contentPane.add(tic);
                 contentPane.revalidate();
                 contentPane.repaint();
             }

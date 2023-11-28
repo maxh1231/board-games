@@ -2,12 +2,11 @@ package client;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
+import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,6 +16,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
 
 /**
  * @author Max Humpherys
@@ -32,6 +33,7 @@ public class TicTacToeWinner extends JPanel {
 	 * Notifies user of win and prompts to save score, or tie
 	 */
 	public TicTacToeWinner(String winner, String loser, boolean isTie) {
+		setBackground(Color.LIGHT_GRAY);
 		this.winner = winner;
 		this.loser = loser;
 		this.isTie = isTie;
@@ -52,6 +54,7 @@ public class TicTacToeWinner extends JPanel {
 	 */
 	private JPanel newBtnPane() {
 		JPanel btnPane = new JPanel();
+		btnPane.setBackground(Color.LIGHT_GRAY);
 		setLayout(new GridLayout(0, 1));
 
 		JButton yesBtn = newSubmitBtn("Yes");
@@ -70,6 +73,7 @@ public class TicTacToeWinner extends JPanel {
 	 */
 	private JButton newSubmitBtn(String btnText) {
 		JButton submitBtn = new JButton(btnText);
+		submitBtn.setFont(new Font("Monospaced", Font.BOLD, 17));
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (submitBtn.getText().equals("Yes")) {
@@ -104,6 +108,7 @@ public class TicTacToeWinner extends JPanel {
 						TicTacToeClient newGame = new TicTacToeClient();
 						removeAll();
 						add(newGame, BorderLayout.CENTER);
+						setBorder(new EmptyBorder(5, 5, 5, 5));
 						revalidate();
 						repaint();
 					}
@@ -126,6 +131,8 @@ public class TicTacToeWinner extends JPanel {
 	 */
 	private JLabel newWinnerLbl() {
 		JLabel winnerLbl = new JLabel();
+		winnerLbl.setBackground(Color.LIGHT_GRAY);
+		winnerLbl.setFont(new Font("Monospaced", Font.BOLD, 15));
 		if (isTie) {
 			winnerLbl.setText("Tie game! Would you like to play again?");
 		} else if (winner.equals("AI")) {

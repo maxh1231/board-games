@@ -10,6 +10,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
 
 /**
  * @author Max Humpherys
@@ -22,6 +24,8 @@ public class PlayerInput extends JPanel {
 	private JTextField player1Name;
 	private JTextField player2Name;
 	private boolean singlePlayer = false;
+	private JPanel pane_1;
+	private JPanel pane;
 
 	/**
 	 * Single parameter constructor for if user selects play vs AI
@@ -32,6 +36,7 @@ public class PlayerInput extends JPanel {
 		setLayout(new BorderLayout());
 
 		JPanel inputPane = new JPanel();
+		inputPane.setBackground(Color.LIGHT_GRAY);
 
 		player1Pane = newPlayer1Pane();
 
@@ -50,10 +55,11 @@ public class PlayerInput extends JPanel {
 		setLayout(new BorderLayout());
 
 		JPanel inputPane = new JPanel();
+		inputPane.setBackground(Color.LIGHT_GRAY);
 
 		player1Pane = newPlayer1Pane();
 		player2Pane = newPlayer2Pane();
-
+		
 		inputPane.add(player1Pane);
 		inputPane.add(player2Pane);
 
@@ -68,16 +74,16 @@ public class PlayerInput extends JPanel {
 	 * @return JPanel
 	 */
 	private JPanel newPlayer1Pane() {
-		JPanel pane = new JPanel();
-		pane.setLayout(new GridLayout(0, 1));
+		pane_1 = new JPanel();
+		pane_1.setLayout(new GridLayout(0, 1));
 
 		player1Name = newPlayer1Name();
 		JLabel player1Lbl = newPlayer1Lbl();
 
-		pane.add(player1Lbl);
-		pane.add(player1Name);
+		pane_1.add(player1Lbl);
+		pane_1.add(player1Name);
 
-		return pane;
+		return pane_1;
 
 	}
 
@@ -87,7 +93,7 @@ public class PlayerInput extends JPanel {
 	 */
 	private JTextField newPlayer1Name() {
 		JTextField player1Name = new JTextField();
-		player1Name.setHorizontalAlignment(SwingConstants.CENTER);
+		player1Name.setHorizontalAlignment(SwingConstants.LEFT);
 		return player1Name;
 	}
 
@@ -97,6 +103,9 @@ public class PlayerInput extends JPanel {
 	 */
 	private JLabel newPlayer1Lbl() {
 		JLabel player1Lbl = new JLabel();
+		player1Lbl.setOpaque(true);
+		player1Lbl.setBackground(Color.LIGHT_GRAY);
+		player1Lbl.setFont(new Font("Monospaced", Font.BOLD, 17));
 		player1Lbl.setHorizontalAlignment(SwingConstants.CENTER);
 		player1Lbl.setText("Player 1 Name:");
 		return player1Lbl;
@@ -107,7 +116,7 @@ public class PlayerInput extends JPanel {
 	 * @return JPanel
 	 */
 	private JPanel newPlayer2Pane() {
-		JPanel pane = new JPanel();
+		pane = new JPanel();
 		pane.setLayout(new GridLayout(0, 1));
 
 		player2Name = newPlayer2Name();
@@ -136,6 +145,10 @@ public class PlayerInput extends JPanel {
 	 */
 	private JLabel newPlayer2Lbl() {
 		JLabel player2Lbl = new JLabel();
+		player2Lbl.setOpaque(true);
+		player2Lbl.setBackground(Color.LIGHT_GRAY);
+		player2Lbl.setHorizontalTextPosition(SwingConstants.CENTER);
+		player2Lbl.setFont(new Font("Monospaced", Font.BOLD, 17));
 		player2Lbl.setHorizontalAlignment(SwingConstants.CENTER);
 		player2Lbl.setText("Player 2 Name:");
 		return player2Lbl;
@@ -147,6 +160,7 @@ public class PlayerInput extends JPanel {
 	 */
 	private JButton newSubmitBtn() {
 		JButton submit = new JButton("Submit");
+		submit.setFont(new Font("Monospaced", Font.BOLD, 17));
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 

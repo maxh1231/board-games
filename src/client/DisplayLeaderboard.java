@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Color;
 
 /**
  * @author Max Humpherys
@@ -28,11 +29,13 @@ public class DisplayLeaderboard extends JPanel {
 	 * Create the panel.
 	 */
 	public DisplayLeaderboard() {
+		setBackground(Color.LIGHT_GRAY);
 		setLayout(new BorderLayout());
 
 		JPanel menuPane = new JPanel();
-		menuPane.setLayout(new GridLayout(0, 1));
-		
+		menuPane.setBackground(Color.LIGHT_GRAY);
+		menuPane.setLayout(new GridLayout(0, 1, 10, 10));
+
 		JLabel headerLbl = newHeaderLbl();
 		add(headerLbl, BorderLayout.NORTH);
 
@@ -47,26 +50,29 @@ public class DisplayLeaderboard extends JPanel {
 		menuPane.add(scoresBtn);
 		add(menuPane, BorderLayout.WEST);
 	}
-	
+
 	/**
 	 * Screen Header Label
+	 * 
 	 * @return JLabel
 	 */
 	private JLabel newHeaderLbl() {
 		// Find better way to align label. Perhaps placing it in BorderLayout.CENTER
-		JLabel header = new JLabel("          Leaderboard");
-		header.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		JLabel header = new JLabel("      Leaderboard");
+		header.setFont(new Font("Monospaced", Font.BOLD, 32));
 		header.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		return header;
 	}
 
 	/**
 	 * Player vs Player button
+	 * 
 	 * @return JButton
 	 */
 	private JButton newPlayBtn() {
 		JButton btnNewButton = new JButton("Play");
+		btnNewButton.setFont(new Font("Monospaced", Font.BOLD, 17));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanel inputPlayers = new PlayerInput();
@@ -81,10 +87,12 @@ public class DisplayLeaderboard extends JPanel {
 
 	/**
 	 * Button for player vs AI
+	 * 
 	 * @return JButton
 	 */
 	private JButton newPlayAIBtn() {
 		JButton playAiBtn = new JButton("Play (AI)");
+		playAiBtn.setFont(new Font("Monospaced", Font.BOLD, 17));
 		playAiBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanel inputPlayer = new PlayerInput(true);
@@ -99,17 +107,19 @@ public class DisplayLeaderboard extends JPanel {
 
 	/**
 	 * Button to return home
+	 * 
 	 * @return JButton
 	 */
 	private JButton newHomeBtn() {
 		JButton scoresBtn = new JButton("Home");
+		scoresBtn.setFont(new Font("Monospaced", Font.BOLD, 17));
 		scoresBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanel tic = new TicTacToeClient();
-                removeAll();
-                add(tic, BorderLayout.CENTER);
-                revalidate();
-                repaint();
+				removeAll();
+				add(tic, BorderLayout.CENTER);
+				revalidate();
+				repaint();
 			}
 		});
 		return scoresBtn;
@@ -117,10 +127,12 @@ public class DisplayLeaderboard extends JPanel {
 
 	/**
 	 * Reads from leaderboard file, creating labels for each line
+	 * 
 	 * @return JLabel
 	 */
 	private JPanel newLeaderPanel() {
 		JPanel newPanel = new JPanel();
+		newPanel.setBackground(Color.LIGHT_GRAY);
 
 		String fileName = "C:\\Users\\maxhu\\Desktop\\School\\fall2023\\csis1410\\BoardGames\\src\\client\\tttLeaderboard.txt";
 
@@ -149,8 +161,6 @@ public class DisplayLeaderboard extends JPanel {
 		for (String s : lines) {
 			String name = s.substring(0, s.indexOf(" "));
 			int wins = Character.getNumericValue(s.charAt(s.length() - 1));
-			System.out.println(name);
-			System.out.println(wins);
 
 			JLabel lbl = newLblCol(name + "     |      " + wins);
 			lbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -162,11 +172,13 @@ public class DisplayLeaderboard extends JPanel {
 
 	/**
 	 * Label for each Leaderboard line
+	 * 
 	 * @param text
 	 * @return JLabel
 	 */
 	private JLabel newLblCol(String text) {
 		JLabel newCol = new JLabel(text);
+		newCol.setFont(new Font("Monospaced", Font.BOLD, 17));
 
 		return newCol;
 	}
