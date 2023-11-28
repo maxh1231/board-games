@@ -25,13 +25,10 @@ public class Client extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-<<<<<<< HEAD
-	// Hello
-	// Comment
-=======
+
 	private JPanel gameSelectPane;
 
->>>>>>> develop
+
 	/**
 	 * Launch the application.
 	 */
